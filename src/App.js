@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import TodoList from "./components/TodoList";
+import TodoList from "./Pages/TodoList";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export default function App() {
