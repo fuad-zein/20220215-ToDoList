@@ -36,12 +36,12 @@ You can following this tutorial at [json-server](https://github.com/typicode/jso
     {
       "title": "Belajar Java",
       "description": "Springboot adalah frameworknya",
-      "id": 5
+      "id": 1
     },
     {
       "title": "Makan",
       "description": "Ikan dan ayam",
-      "id": 8
+      "id": 2
     }
   ]
 }
