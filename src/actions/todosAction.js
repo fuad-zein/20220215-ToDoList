@@ -19,7 +19,7 @@ export const getListTodos = () => {
 
     axios({
       method: "GET",
-      url: "http://localhost:3000/todos",
+      url: "http://localhost:3000/todos?_sort=id&_order=desc",
       timeout: 120000,
     })
       .then((response) => {

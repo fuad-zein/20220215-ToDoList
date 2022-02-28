@@ -80,9 +80,11 @@ function ListTodos() {
                 <p className="mt-3">{todos.description}</p>
                 <div style={{ position: "absolute", bottom: 20, right: 20 }}>
                   <i
-                    onClick={() =>
-                      setModal(true) && dispatch(detailTodos(todos))
-                    }
+                    onClick={() => {
+                      dispatch(detailTodos(todos));
+                      setModal(true);
+                      // console.log(todos);
+                    }}
                     className="far fa-edit"
                     style={{
                       color: "lightgreen",

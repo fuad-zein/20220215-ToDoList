@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
-import { addTodos, getListTodos } from "../../actions/todosAction";
+import { addTodos, getListTodos, updateTodos } from "../../actions/todosAction";
 
 function AddTodos({ modal, toggle, save }) {
   const [title, setTitle] = useState("");
@@ -15,18 +15,22 @@ function AddTodos({ modal, toggle, save }) {
 
   const handleSave = (e) => {
     e.preventDefault();
-    let taskObj = {};
-    dispatch(addTodos({ title: title, description: description }));
-    // save(taskObj);
+    if (id) {
+      dispatch(updateTodos({ id: id, title: title, description: description }));
+    } else {
+      let taskObj = {};
+      dispatch(addTodos({ title: title, description: description }));
+      save(taskObj);
+    }
   };
 
   useEffect(() => {
     if (addTodosResult) {
-      dispatch(getListTodos());
+      getListTodos();
       setTitle("");
       setDescription("");
     }
-  }, [addTodosResult, dispatch]);
+  }, [addTodosResult]);
 
   useEffect(() => {
     if (detailTodosResult) {
