@@ -8,7 +8,7 @@ function AddTodos({ modal, toggle, save }) {
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
 
-  const { addTodosResult, detailTodosResult } = useSelector(
+  const { addTodosResult, detailTodosResult, updateTodosResult } = useSelector(
     (state) => state.TodosReducer
   );
   const dispatch = useDispatch();
@@ -18,19 +18,17 @@ function AddTodos({ modal, toggle, save }) {
     if (id) {
       dispatch(updateTodos({ id: id, title: title, description: description }));
     } else {
-      let taskObj = {};
       dispatch(addTodos({ title: title, description: description }));
-      save(taskObj);
     }
   };
 
   useEffect(() => {
     if (addTodosResult) {
-      getListTodos();
+      dispatch(getListTodos());
       setTitle("");
       setDescription("");
     }
-  }, [addTodosResult]);
+  }, [addTodosResult, dispatch]);
 
   useEffect(() => {
     if (detailTodosResult) {
@@ -40,10 +38,21 @@ function AddTodos({ modal, toggle, save }) {
     }
   }, [detailTodosResult, dispatch]);
 
+  useEffect(() => {
+    if (updateTodosResult) {
+      dispatch(getListTodos());
+      setTitle("");
+      setDescription("");
+      setId("");
+    }
+  }, [updateTodosResult, dispatch]);
+
   return (
     <div>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Create Task</ModalHeader>
+        <ModalHeader toggle={toggle}>
+          {id ? "Update Task" : "Create Task"}
+        </ModalHeader>
         <ModalBody>
           <form>
             <div className="form-group mb-3">
@@ -70,7 +79,7 @@ function AddTodos({ modal, toggle, save }) {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" type="submit" onClick={handleSave}>
-            Create
+            {id ? "Update" : "Create"}
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancel
