@@ -4,11 +4,12 @@ import {
   deleteTodos,
   detailTodos,
   getListTodos,
+  updateTodos,
 } from "../../actions/todosAction";
 import todos from "../../reducers/todos";
 import AddTodos from "../AddTodos";
 
-function ListTodos() {
+function ListTodos(taskObj, tempObj, index) {
   const {
     getListTodosResult,
     getListTodosLoading,
@@ -24,38 +25,38 @@ function ListTodos() {
 
   const dispatch = useDispatch();
 
-  // const colors = [
-  //   {
-  //     primaryColor: "#5D93E1",
-  //     secondaryColor: "#ECF3FC",
-  //   },
-  //   {
-  //     primaryColor: "#F9D288",
-  //     secondaryColor: "#FEFAF1",
-  //   },
-  //   {
-  //     primaryColor: "#5DC250",
-  //     secondaryColor: "#F2FAF1",
-  //   },
-  //   {
-  //     primaryColor: "#F48687",
-  //     secondaryColor: "#FDF1F1",
-  //   },
-  //   {
-  //     primaryColor: "#B964F7",
-  //     secondaryColor: "#F3F0FD",
-  //   },
-  // ];
+  const colors = [
+    {
+      primaryColor: "#5D93E1",
+      secondaryColor: "#ECF3FC",
+    },
+    {
+      primaryColor: "#F9D288",
+      secondaryColor: "#FEFAF1",
+    },
+    {
+      primaryColor: "#5DC250",
+      secondaryColor: "#F2FAF1",
+    },
+    {
+      primaryColor: "#F48687",
+      secondaryColor: "#FDF1F1",
+    },
+    {
+      primaryColor: "#B964F7",
+      secondaryColor: "#F3F0FD",
+    },
+  ];
 
   useEffect(() => {
     dispatch(getListTodos());
-  }, [dispatch]);
+  }, [index, dispatch]);
 
   useEffect(() => {
     if (deleteTodosResult) {
       dispatch(getListTodos());
     }
-  }, [deleteTodosResult, dispatch]);
+  }, [deleteTodosResult, index, dispatch]);
 
   return (
     <div>
@@ -65,13 +66,13 @@ function ListTodos() {
             <div className="card-wrapper mr-5" key={todos.id}>
               <div
                 className="card-top"
-                style={{ backgroundColor: "lightgreen" }}
+                style={{ backgroundColor: colors[todos.id % 5].primaryColor }}
               ></div>
               <div className="task-holder">
                 <span
                   className="card-header"
                   style={{
-                    backgroundColor: "lightgreen",
+                    backgroundColor: colors[todos.id % 5].secondaryColor,
                     borderRadius: "10px",
                   }}
                 >
@@ -87,7 +88,7 @@ function ListTodos() {
                     }}
                     className="far fa-edit"
                     style={{
-                      color: "lightgreen",
+                      color: colors[todos.id % 5].primaryColor,
                       cursor: "pointer",
                       marginRight: 10,
                     }}
@@ -96,13 +97,18 @@ function ListTodos() {
                     onClick={() => dispatch(deleteTodos(todos.id))}
                     className="fas fa-trash-alt"
                     style={{
-                      color: "lightgreen",
+                      color: colors[todos.id % 5].primaryColor,
                       cursor: "pointer",
                     }}
                   ></i>
                 </div>
               </div>
-              <AddTodos modal={modal} toggle={toggle} />
+              <AddTodos
+                modal={modal}
+                toggle={toggle}
+                taskObj={taskObj}
+                tempObj={tempObj}
+              />
             </div>
           );
         })

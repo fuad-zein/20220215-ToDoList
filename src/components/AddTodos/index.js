@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { addTodos, getListTodos, updateTodos } from "../../actions/todosAction";
 
-function AddTodos({ modal, toggle, save }) {
+function AddTodos({ modal, toggle, save, taskObj, tempObj }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
@@ -16,9 +16,16 @@ function AddTodos({ modal, toggle, save }) {
   const handleSave = (e) => {
     e.preventDefault();
     if (id) {
+      let tempObj = {};
+      tempObj.title = title;
+      tempObj.description = description;
       dispatch(updateTodos({ id: id, title: title, description: description }));
     } else {
+      let taskObj = {};
+      taskObj.title = title;
+      taskObj.description = description;
       dispatch(addTodos({ title: title, description: description }));
+      save(taskObj);
     }
   };
 
