@@ -28,6 +28,14 @@ By default run at [http://localhost:3000/](http://localhost:3000/)
 
 You can following this tutorial at [json-server](https://github.com/typicode/json-server)
 
+You can run by:
+
+```
+json-server --watch todo.json --port 3001
+```
+
+And will be show at [http://localhost:3001/todos](http://localhost:3001/todos)
+
 **Value from my json-server:**
 
 ```json

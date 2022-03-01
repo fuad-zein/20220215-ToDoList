@@ -19,7 +19,7 @@ export const getListTodos = () => {
 
     axios({
       method: "GET",
-      url: "http://localhost:3000/todos?_sort=id&_order=desc",
+      url: "http://localhost:3001/todos?_sort=id&_order=desc",
       timeout: 120000,
     })
       .then((response) => {
@@ -60,7 +60,7 @@ export const addTodos = (data) => {
 
     axios({
       method: "POST",
-      url: "http://localhost:3000/todos",
+      url: "http://localhost:3001/todos",
       timeout: 120000,
       data: data,
     })
@@ -102,7 +102,7 @@ export const deleteTodos = (id) => {
 
     axios({
       method: "DELETE",
-      url: "http://localhost:3000/todos/" + id,
+      url: "http://localhost:3001/todos/" + id,
       timeout: 120000,
     })
       .then((response) => {
@@ -154,7 +154,7 @@ export const updateTodos = (data) => {
 
     axios({
       method: "PUT",
-      url: "http://localhost:3000/todos/" + data.id,
+      url: "http://localhost:3001/todos/" + data.id,
       timeout: 120000,
       data: data,
     })
